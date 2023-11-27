@@ -72,6 +72,8 @@
     padding: 24px;
     .review__wrap {
       display: flex;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+      padding-bottom: 16px;
       .review__avatar {
         width: 40px;
         height: 40px;
@@ -91,6 +93,14 @@
           margin: 4px 0 15px;
         }
       }
+    }
+  }
+  .page {
+    justify-content: center;
+    padding-bottom: 25px;
+    align-items: center;
+    li:hover {
+      cursor: pointer;
     }
   }
 }

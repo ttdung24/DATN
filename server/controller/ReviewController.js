@@ -24,11 +24,27 @@ const ReviewController = {
   },
   getReviewOfProduct: async (req, res) => {
     try {
-      const review = await Review.find({
-        product: new mongoose.Types.ObjectId(req.params.id),
-      })
-        .populate('user')
-        .populate('product');
+      const { page, limit } = req.query;
+      const pipeline = [
+        {
+          $match: { product: new mongoose.Types.ObjectId(req.params.id) },
+        },
+        {
+          $skip: (Number(page) - 1) * Number(limit),
+        },
+        { $limit: Number(limit) },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        { $unwind: '$user' },
+      ];
+      const review = await Review.aggregate(pipeline).allowDiskUse(true);
+
       return res.status(200).json({
         message: 'Tạo review thành công',
         review,

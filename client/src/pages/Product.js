@@ -6,22 +6,43 @@ import { API_LINK } from '../default-value';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../store/slice/cartSlice';
 import ReactStars from 'react-stars';
+import moment from 'moment';
 
 const Product = () => {
   const { id } = useParams();
   const [dataProduct, setDataProduct] = useState();
   const [dataReview, setDataReview] = useState();
   const [number, setNumber] = useState(1);
+  const [page, setPage] = useState(1);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(`${API_LINK}/product/${id}`);
+      const res2 = await axios.get(`${API_LINK}/review/product/${id}`, {
+        params: {
+          page: page,
+          limit: 5,
+        },
+      });
       setDataProduct(res.data.product);
+      setDataReview(res2.data.review);
     };
     fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res2 = await axios.get(`${API_LINK}/review/product/${id}`, {
+        params: {
+          page: page,
+          limit: 5,
+        },
+      });
+      setDataReview(res2.data.review);
+    };
+    fetchData();
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
   const handleAddToCart = async () => {
     try {
       const res = await axios.patch(`${API_LINK}/cart/addProduct`, {
@@ -89,16 +110,52 @@ const Product = () => {
           <h3>Đánh giá sản phẩm</h3>
         </div>
         <div className='review__body'>
-          <div className='review__wrap'>
-            <div className='review__avatar'></div>
-            <div className='review__main'>
-              <div className='review__author-name'>totiendung</div>
-              <ReactStars count={5} value={5} size={16} color2={'#ffd700'} edit={false} />
-              <div className='review__time'>22-10-2023</div>
-              <div className='review__comment'>asdfadsagsdg</div>
-            </div>
-          </div>
+          {dataReview &&
+            dataReview.map((item) => (
+              <div className='review__wrap'>
+                <div className='review__avatar'></div>
+                <div className='review__main'>
+                  <div className='review__author-name'>
+                    {item.user.username}
+                  </div>
+                  <ReactStars
+                    count={5}
+                    value={item.rating}
+                    size={16}
+                    color2={'#ffd700'}
+                    edit={false}
+                  />
+                  <div className='review__time'>
+                    {moment(item.createdAt)
+                      .format('DD-MM-YYYY  hh:mm')
+                      .toString()}
+                  </div>
+                  <div className='review__comment'>{item.comment}</div>
+                </div>
+              </div>
+            ))}
         </div>
+        <ul className='pagination page'>
+          <li className='page-item'>
+            <span
+              className='page-link'
+              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            >
+              Previous
+            </span>
+          </li>
+          <li className='page-item'>
+            <span className='page-link'>{page}</span>
+          </li>
+          <li className='page-item'>
+            <span
+              className='page-link'
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              Next
+            </span>
+          </li>
+        </ul>
       </div>
     </>
   );
