@@ -1,0 +1,106 @@
+.shopregister {
+  margin-top: 20px;
+  background-color: #fff;
+  position: relative;
+  .shopreg__header {
+    padding: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .shopreg__content {
+    padding: 52px 200px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .input-field {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+      span {
+        width: 20%;
+        text-align: right;
+      }
+      input {
+        margin-left: 20px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 8px 12px;
+        border-radius: 2px;
+        min-width: 400px;
+      }
+      textarea {
+        margin-left: 20px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 8px 12px;
+        border-radius: 2px;
+        min-width: 400px;
+      }
+      button, img {
+        margin-left: 20px;
+        max-width: 250px;
+      }
+      button {
+        padding: 8px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      select {
+        margin-left: 20px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 8px 12px;
+        border-radius: 2px;
+        max-width: 400px;
+      }
+    }
+  }
+  .shopreg__button {
+    display: flex;
+    padding: 20px;
+    justify-content: flex-end;
+  }
+}
+
+.shopreg__popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .popup__box {
+    width: 500px;
+    min-height: 500px;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    .popup__icon {
+      font-size: 80px;
+    }
+    .popup__message {
+      padding: 24px 0;
+    }
+  }
+}
+
+.button {
+  text-align: center;
+  padding: 8px 12px;
+  width: 90px;
+  border-radius: 3px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.button-submit {
+  background-color: #60a5fa;
+  color: #fff;
+}
+.button-cancel {
+  border: 1px solid rgba(0, 0, 0, 0.7);
+}

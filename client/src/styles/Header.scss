@@ -1,0 +1,96 @@
+.header {
+  background-color: #60a5fa;
+  .header__logo {
+    color: white;
+    width: 20%;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  .header__logo:hover {
+    cursor: pointer;
+  }
+  .header__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 8px;
+    position: relative;
+    input {
+      width: 100%;
+      border: 0;
+      outline: none;
+      padding: 8px 16px;
+      border-radius: 2px;
+    }
+    .header__search-icon {
+      position: absolute;
+      background-color: #60a5fa;
+      padding: 2px 18px;
+      border-radius: 2px;
+      top: 50%;
+      right: 11px;
+      font-size: 20px;
+      transform: translateY(-50%);
+    }
+    .header__search-icon:hover {
+      cursor: pointer;
+    }
+  }
+  .header__other {
+    color: white;
+    width: 15%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .header__user {
+      position: relative;
+      .user__popup {
+        display: none;
+        position: absolute;
+        width: 160px;
+        background-color: white;
+        top: 125%;
+        right: 0;
+        z-index: 999;
+        transform: translateX(calc(50% - 16px));
+        border-radius: 2px;
+        box-shadow: 0 0 0.8125rem 0 rgba(0, 0, 0, 0.05);
+        .selection {
+          color: #000;
+          padding: 12px;
+        }
+        .selection:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: #60a5fa;
+            cursor: pointer;
+        }
+      }
+      .user__popup::before {
+        display: none;
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -8px;
+        left: calc(50% - 8px);
+        border-left: 8px solid #60a5fa;
+        border-right: 8px solid #60a5fa;
+        border-bottom: 8px solid #fff;
+      }
+    }
+    .header__user:hover {
+        .user__popup,
+        .user__popup::before {
+            display: block;
+        }
+    }
+
+    .header__icon {
+      font-size: 32px;
+    }
+    .header__icon:hover {
+      cursor: pointer;
+    }
+  }
+}

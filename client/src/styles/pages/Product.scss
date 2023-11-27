@@ -1,0 +1,96 @@
+.product {
+  background-color: white;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 4px;
+  .product__img {
+    width: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-top: 600px;
+  }
+  .product__info {
+    width: 46%;
+    h3 {
+      font-size: 30px;
+      font-weight: 500;
+    }
+    .product__price {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    .product__number {
+      display: flex;
+      .btn-edit {
+        width: 40px;
+        text-align: center;
+        background-color: #fe5252;
+        color: white;
+        line-height: 35px;
+        border-radius: 2px;
+      }
+      div:hover {
+        cursor: pointer;
+      }
+      input {
+        width: 42px;
+        outline: none;
+        border: 1px solid #fe5252;
+        text-align: center;
+        line-height: 35px;
+      }
+      .btn-addcart {
+        width: 50%;
+        margin-left: 40px;
+        line-height: 35px;
+        text-align: center;
+        text-transform: uppercase;
+        background-color: #fe5252;
+        color: white;
+        font-weight: 700;
+        border-radius: 3px;
+      }
+      .btn-addcart:hover {
+        background-color: #000;
+      }
+    }
+  }
+}
+.review {
+  background-color: white;
+  margin-top: 20px;
+  .review__header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+  .review__body {
+    padding: 24px;
+    .review__wrap {
+      display: flex;
+      .review__avatar {
+        width: 40px;
+        height: 40px;
+        border: 0;
+        margin-right: 12px;
+        background-image: url('https://firebasestorage.googleapis.com/v0/b/datn-d800f.appspot.com/o/832.jpg?alt=media&token=9c9d6190-39d9-48a6-aef3-505be307f387');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .review__main {
+        .review__author-name {
+          font-size: 14px;
+        }
+        .review__time {
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54);
+          margin: 4px 0 15px;
+        }
+      }
+    }
+  }
+}

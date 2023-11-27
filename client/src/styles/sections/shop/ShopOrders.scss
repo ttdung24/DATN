@@ -1,0 +1,23 @@
+.order-status-noti {
+  background-color: rgba(212, 107, 8, 0.133);
+  color: rgb(212, 107, 8);
+  border-radius: 6px;
+}
+
+.date-picker {
+  margin: 24px;
+  display: flex;
+}
+
+.btn-filter {
+  line-height: 29px;
+  background-color: rgba(96, 165, 250, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+.btn-filter:hover {
+  cursor: pointer;
+  background-color: #60a5fa;
+}

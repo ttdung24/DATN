@@ -1,0 +1,77 @@
+.shopinfo {
+  position: relative;
+  .shopinfo__box {
+    .shopinfo__content {
+      position: relative;
+      margin-top: 20px;
+      background-color: white;
+      h3 {
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 300;
+        padding: 20px 40px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .btn-add {
+        position: absolute;
+        background-color: #60a5fa;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 2px;
+        cursor: pointer;
+        top: 12px;
+        right: 12px;
+      }
+      .shopinfo__table-header {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin: 24px;
+        margin-bottom: 0;
+        border-radius: 4px 4px 0 0;
+        table {
+          tr {
+            background-color: #f6f6f6;
+            th {
+              text-align: center;
+              padding: 8px;
+              font-weight: 300;
+            }
+          }
+        }
+      }
+      .shopinfo__table-body {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        margin: 24px;
+        margin-top: 0;
+        border-radius: 0 0 4px 4px;
+        table {
+          tr {
+            td {
+              text-align: center;
+              padding: 8px;
+              .btn-delete {
+                background-color: #60a5fa;
+                color: white;
+                padding: 6px;
+                border-radius: 2px;
+                cursor: pointer;
+              }
+            }
+          }
+          tr:hover {
+            background-color: #f6f6f6;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .shopinfo {
+    .shopinfo__box {
+      min-width: 1536px;
+      padding-left: 240px;
+      padding-right: 0px;
+    }
+  }
+}
