@@ -30,7 +30,6 @@ export const getInfomation = async (dispatch, accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(1);
     dispatch(getShop(res.data.shop));
     dispatch(getCategories(res2.data.category));
     dispatch(getCart(res3.data.cart));

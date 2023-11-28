@@ -196,6 +196,30 @@ const OrderController = {
       });
     }
   },
+  updateStatusOrder: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const order = await Order.findByIdAndUpdate(
+        id,
+        { ...req.body },
+        {
+          new: true,
+        }
+      ).populate({
+        path: 'list',
+        populate: 'product',
+      });
+      return res.status(200).json({
+        message: 'Cập nhật trạng thái thành công',
+        order: order,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Server error',
+        error: error,
+      });
+    }
+  },
 };
 
 module.exports = OrderController;

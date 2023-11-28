@@ -14,7 +14,6 @@ const OrderDesPage = () => {
   const [open, setOpen] = useState('');
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
-  console.log(open);
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -52,11 +51,21 @@ const OrderDesPage = () => {
           },
         }
       );
-      console.log(res.data);
       setOpen(false);
       alert(res.data.message);
     } catch (error) {
       console.log('Lỗi ở submit Review:', error);
+    }
+  };
+  const updateStatus = async () => {
+    try {
+      const res = await axios.put(`${API_LINK}/order/${id}/update`, {
+        statusShipping: true,
+      });
+      alert(res.data.message);
+      setDataOrder(res.data.order)
+    } catch (error) {
+      console.log('Lỗi ở update Status:', error);
     }
   };
   return (
@@ -65,6 +74,11 @@ const OrderDesPage = () => {
         <div className='title'>
           <FaShoppingBag color='#60a5fa' />
           <span>Chi tiết đơn hàng</span>
+          {dataOrder && !dataOrder.statusShipping && (
+            <div className='btn-update' onClick={() => updateStatus()}>
+              Xác nhận giao hàng
+            </div>
+          )}
         </div>
         <div className='info-wrap'>
           <h5 className='info-header'>Thông tin đơn hàng</h5>
@@ -138,11 +152,7 @@ const OrderDesPage = () => {
               <div className='orderlist'>
                 {dataOrder?.list &&
                   dataOrder?.list.map((item) => (
-                    <OrderItem
-                      key={item._id}
-                      item={item}
-                      setOpen={setOpen}
-                    />
+                    <OrderItem key={item._id} item={item} setOpen={setOpen} />
                   ))}
               </div>
             </div>

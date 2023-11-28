@@ -17,6 +17,8 @@ import OrderDesPage from './pages/OrderDesPage';
 import EditProduct from './sections/shop/EditProduct';
 import ShopOrders from './sections/shop/ShopOrders';
 import ShopStatistics from './sections/shop/ShopStatistics';
+import UserPage from './pages/UserPage';
+import ChangePassword from './sections/userpage/ChangePassword';
 
 function App() {
   return (
@@ -151,6 +153,26 @@ function App() {
               <>
                 <Header />
                 <OrderDesPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path='/user'
+            element={
+              <>
+                <Header />
+                <UserPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path='/user/password'
+            element={
+              <>
+                <Header />
+                <ChangePassword />
                 <Footer />
               </>
             }

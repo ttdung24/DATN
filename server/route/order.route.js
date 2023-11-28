@@ -12,6 +12,7 @@ orderRouter.post(
 );
 
 orderRouter.get('/:id', orderController.getOrderById);
+orderRouter.put('/:id/update', orderController.updateStatusOrder);
 
 orderRouter.get('/shop/:id', orderController.getAllOrdersOfShop);
 orderRouter.get('/shop/statistic/:id', orderController.getDailySalesStatistics);

@@ -56,7 +56,7 @@ const Header = () => {
           <div className='header__user'>
             <AiOutlineUser className='header__icon' />
             <div className='user__popup'>
-              <div className='selection'>Thông tin cá nhân</div>
+              <div className='selection' onClick={(e) => navigator('/user')}>Thông tin cá nhân</div>
               <div className='selection' onClick={(e) => navigator('/shop')}>
                 Shop
               </div>

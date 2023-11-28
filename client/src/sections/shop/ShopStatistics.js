@@ -45,7 +45,6 @@ const ShopStatistics = () => {
       console.log('Lỗi ở fetchData', error);
     }
   };
-  console.log(dataStatistic);
   useEffect(() => {
     fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
