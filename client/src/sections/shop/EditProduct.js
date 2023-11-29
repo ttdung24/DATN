@@ -59,7 +59,6 @@ const EditProduct = () => {
         `${API_LINK}/product/${productForm._id}`,
         updateProduct
       );
-      console.log(res.data.product);
       setMessage(res.data.message);
       setCheck('1');
     } catch (error) {
@@ -120,6 +119,7 @@ const EditProduct = () => {
             <span>Nhãn</span>
             <select
               className='form-select'
+              value={productForm.category}
               onChange={(e) =>
                 setProductForm({ ...productForm, category: e.target.value })
               }
@@ -129,7 +129,6 @@ const EditProduct = () => {
                 <option
                   key={item._id}
                   value={item._id}
-                  selected={productForm.category === item._id}
                 >
                   {item.name}
                 </option>

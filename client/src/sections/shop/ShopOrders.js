@@ -16,7 +16,6 @@ const ShopOrders = () => {
 
   const shop = useSelector((state) => state.shop);
   const fetchData = async () => {
-    console.log(start, end);
     try {
       const res = await axios.get(`${API_LINK}/order/shop/${shop.shop._id}`, {
         params: { start, end },
@@ -37,17 +36,19 @@ const ShopOrders = () => {
           <div className='date-picker'>
             <DatePicker onChange={setStart} value={start} />
             <DatePicker onChange={setEnd} value={end} className={'ms-4'} />
-            <div className='btn-filter ms-4' onClick={(e) => fetchData()}>Tìm kiếm</div>
+            <div className='btn-filter ms-4' onClick={(e) => fetchData()}>
+              Tìm kiếm
+            </div>
           </div>
           <div className='shopinfo__table-header'>
             <table>
               <colgroup>
                 <col width={400} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
+                <col width={169} />
+                <col width={169} />
+                <col width={169} />
+                <col width={169} />
+                <col width={170} />
               </colgroup>
               <thead>
                 <tr>
@@ -65,11 +66,11 @@ const ShopOrders = () => {
             <table>
               <colgroup>
                 <col width={400} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
-                <col width={160} />
+                <col width={169} />
+                <col width={169} />
+                <col width={169} />
+                <col width={169} />
+                <col width={170} />
               </colgroup>
               <tbody>
                 {dataShop &&
@@ -85,14 +86,26 @@ const ShopOrders = () => {
                         đ
                       </td>
                       <td>
-                        <span className='badge order-status-noti'>
-                          Chờ xác nhận
-                        </span>
+                        {item.statusShipping ? (
+                          <span className='badge order-status-noti-complete'>
+                            Đã giao hàng
+                          </span>
+                        ) : (
+                          <span className='badge order-status-noti'>
+                            Chờ xác nhận
+                          </span>
+                        )}
                       </td>
                       <td>
-                        <span className='badge order-status-noti'>
-                          Chờ thanh toán
-                        </span>
+                        {item.statusPayment ? (
+                          <span className='badge order-status-noti-complete'>
+                            Đã thanh toán
+                          </span>
+                        ) : (
+                          <span className='badge order-status-noti'>
+                            Chờ thanh toán
+                          </span>
+                        )}
                       </td>
                     </tr>
                   ))}

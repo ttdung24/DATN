@@ -19,14 +19,7 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(`${API_LINK}/product/${id}`);
-      const res2 = await axios.get(`${API_LINK}/review/product/${id}`, {
-        params: {
-          page: page,
-          limit: 5,
-        },
-      });
       setDataProduct(res.data.product);
-      setDataReview(res2.data.review);
     };
     fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -112,7 +105,7 @@ const Product = () => {
         <div className='review__body'>
           {dataReview &&
             dataReview.map((item) => (
-              <div className='review__wrap'>
+              <div className='review__wrap' key={item._id}>
                 <div className='review__avatar'></div>
                 <div className='review__main'>
                   <div className='review__author-name'>

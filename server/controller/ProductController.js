@@ -24,7 +24,14 @@ const ProductController = {
   getProductOfShop: async (req, res) => {
     try {
       const product = await Product.aggregate([
-        { $match: { shop: new mongoose.Types.ObjectId(req.params.id) } },
+        {
+          $match: {
+            $and: [
+              { shop: new mongoose.Types.ObjectId(req.params.id) },
+              { status: true },
+            ],
+          },
+        },
         {
           $lookup: {
             from: 'categories',

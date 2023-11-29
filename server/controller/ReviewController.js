@@ -56,6 +56,19 @@ const ReviewController = {
       });
     }
   },
+  deleteReview: async (req, res) => {
+    try {
+      const review = await Review.findByIdAndDelete(req.params.id);
+      return res.status(200).json({
+        message: 'Xóa review thành công',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Server error',
+        error: error,
+      });
+    }
+  },
 };
 
 module.exports = ReviewController;

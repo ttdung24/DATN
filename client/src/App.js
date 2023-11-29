@@ -20,6 +20,7 @@ import ShopStatistics from './sections/shop/ShopStatistics';
 import UserPage from './pages/UserPage';
 import ChangePassword from './sections/userpage/ChangePassword';
 import QRCodePage from './pages/QRCodePage';
+import ShopReviews from './sections/shop/ShopReviews';
 
 function App() {
   return (
@@ -84,6 +85,16 @@ function App() {
               <>
                 <Header />
                 <EditProduct />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path='/shop/reviews/:id'
+            element={
+              <>
+                <Header />
+                <ShopReviews />
                 <Footer />
               </>
             }

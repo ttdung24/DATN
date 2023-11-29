@@ -66,14 +66,6 @@ const Header = () => {
               <div className='selection' onClick={(e) => navigator('/orders')}>
                 Đơn hàng
               </div>
-              {localStorage.getItem('role') === 'admin' && (
-                <div
-                  className='selection'
-                  onClick={(e) => navigator('/orders')}
-                >
-                  Quản lý đơn hàng
-                </div>
-              )}
               <div className='selection' onClick={(e) => handleSignOut()}>
                 Đăng xuất
               </div>

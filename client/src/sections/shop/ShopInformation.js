@@ -10,13 +10,23 @@ const ShopInformation = () => {
   const navigator = useNavigate();
   const [dataShop, setDataShop] = useState(null);
   const shop = useSelector((state) => state.shop);
+  const fetchProductOfShop = async () => {
+    const res = await axios.get(`${API_LINK}/product/shop/${shop.shop._id}`);
+    setDataShop(res.data.product);
+  };
   useEffect(() => {
-    const fetchProductOfShop = async () => {
-      const res = await axios.get(`${API_LINK}/product/shop/${shop.shop._id}`);
-      setDataShop(res.data.product);
-    };
     fetchProductOfShop();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const deleteProduct = async (e, id) => {
+    e.stopPropagation();
+    const res = await axios.put(`${API_LINK}/product/${id}`, {
+      status: false,
+    });
+    console.log(res.data.message);
+    fetchProductOfShop();
+  };
+
   return (
     <div className='shopinfo'>
       <div className='container shopinfo__box'>
@@ -34,9 +44,10 @@ const ShopInformation = () => {
             <table>
               <colgroup>
                 <col width={400} />
-                <col width={200} />
-                <col width={300} />
-                <col width={200} />
+                <col width={150} />
+                <col width={250} />
+                <col width={150} />
+                <col width={150} />
                 <col width={150} />
               </colgroup>
               <thead>
@@ -46,6 +57,7 @@ const ShopInformation = () => {
                   <th>Nhãn</th>
                   <th>Số lượng</th>
                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
             </table>
@@ -54,9 +66,10 @@ const ShopInformation = () => {
             <table>
               <colgroup>
                 <col width={400} />
-                <col width={200} />
-                <col width={300} />
-                <col width={200} />
+                <col width={150} />
+                <col width={250} />
+                <col width={150} />
+                <col width={150} />
                 <col width={150} />
               </colgroup>
               <tbody>
@@ -71,7 +84,23 @@ const ShopInformation = () => {
                       <td>{item.category.name}</td>
                       <td>{item.quantity}</td>
                       <td>
-                        <div className='btn-delete'>Xóa</div>
+                        <div
+                          className='btn-delete'
+                          onClick={(e) => deleteProduct(e, item._id)}
+                        >
+                          Xóa
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          className='btn-delete'
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigator(`/shop/reviews/${item._id}`);
+                          }}
+                        >
+                          Xem đánh giá
+                        </div>
                       </td>
                     </tr>
                   ))}

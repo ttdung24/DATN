@@ -9,6 +9,7 @@ const productSchema = new Schema(
     image: { type: String, require: true, default: '' },
     category: { type: Schema.Types.ObjectId },
     shop: { type: Schema.Types.ObjectId },
+    status: { type: Boolean, require: true, default: true },
   },
   {
     timestamps: true,
