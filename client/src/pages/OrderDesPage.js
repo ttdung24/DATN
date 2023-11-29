@@ -18,7 +18,6 @@ const OrderDesPage = () => {
     const fetchOrder = async () => {
       try {
         const res = await axios.get(`${API_LINK}/order/${id}`);
-        console.log(res.data.order);
         setDataOrder(res.data.order);
       } catch (error) {
         console.log('Loi o fetchOrder:', error);
@@ -59,11 +58,13 @@ const OrderDesPage = () => {
   };
   const updateStatus = async () => {
     try {
-      const res = await axios.put(`${API_LINK}/order/${id}/update`, {
-        statusShipping: true,
-      });
+      const newReq =
+        localStorage.getItem('role') === 'admin'
+          ? { statusPayment: true }
+          : { statusShipping: true };
+      const res = await axios.put(`${API_LINK}/order/${id}/update`, newReq);
       alert(res.data.message);
-      setDataOrder(res.data.order)
+      setDataOrder(res.data.order);
     } catch (error) {
       console.log('Lỗi ở update Status:', error);
     }
@@ -74,11 +75,21 @@ const OrderDesPage = () => {
         <div className='title'>
           <FaShoppingBag color='#60a5fa' />
           <span>Chi tiết đơn hàng</span>
-          {dataOrder && !dataOrder.statusShipping && (
-            <div className='btn-update' onClick={() => updateStatus()}>
-              Xác nhận giao hàng
-            </div>
-          )}
+          {localStorage.getItem('role') !== 'admin' &&
+            dataOrder &&
+            dataOrder.statusPayment &&
+            !dataOrder.statusShipping && (
+              <div className='btn-update' onClick={() => updateStatus()}>
+                Xác nhận giao hàng
+              </div>
+            )}
+          {localStorage.getItem('role') === 'admin' &&
+            dataOrder &&
+            !dataOrder.statusPayment && (
+              <div className='btn-update' onClick={() => updateStatus()}>
+                Xác nhận thanh toán
+              </div>
+            )}
         </div>
         <div className='info-wrap'>
           <h5 className='info-header'>Thông tin đơn hàng</h5>

@@ -29,10 +29,9 @@ const PaymentPage = () => {
         ...cartForm,
         ...cart.cart,
       });
-      console.log(res.data)
       dispatch(getCart(res.data.cart));
       alert(res.data.message);
-      navigator('/homepage');
+      navigator(`/payment/${res.data.order._id}`);
     } catch (error) {
       console.log(error.response.data.message);
     }

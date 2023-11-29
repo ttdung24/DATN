@@ -19,6 +19,7 @@ import ShopOrders from './sections/shop/ShopOrders';
 import ShopStatistics from './sections/shop/ShopStatistics';
 import UserPage from './pages/UserPage';
 import ChangePassword from './sections/userpage/ChangePassword';
+import QRCodePage from './pages/QRCodePage';
 
 function App() {
   return (
@@ -133,6 +134,16 @@ function App() {
               <>
                 <Header />
                 <PaymentPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path='/payment/:id'
+            element={
+              <>
+                <Header />
+                <QRCodePage />
                 <Footer />
               </>
             }

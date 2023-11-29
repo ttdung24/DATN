@@ -16,6 +16,7 @@ const Header = () => {
   const handleSignOut = async () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('role');
     dispatch(logout(''));
     navigator('/');
   };
@@ -56,13 +57,23 @@ const Header = () => {
           <div className='header__user'>
             <AiOutlineUser className='header__icon' />
             <div className='user__popup'>
-              <div className='selection' onClick={(e) => navigator('/user')}>Thông tin cá nhân</div>
+              <div className='selection' onClick={(e) => navigator('/user')}>
+                Thông tin cá nhân
+              </div>
               <div className='selection' onClick={(e) => navigator('/shop')}>
                 Shop
               </div>
               <div className='selection' onClick={(e) => navigator('/orders')}>
                 Đơn hàng
               </div>
+              {localStorage.getItem('role') === 'admin' && (
+                <div
+                  className='selection'
+                  onClick={(e) => navigator('/orders')}
+                >
+                  Quản lý đơn hàng
+                </div>
+              )}
               <div className='selection' onClick={(e) => handleSignOut()}>
                 Đăng xuất
               </div>

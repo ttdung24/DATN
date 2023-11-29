@@ -14,6 +14,7 @@ const userSchema = new Schema(
       default:
         'https://firebasestorage.googleapis.com/v0/b/datn-d800f.appspot.com/o/832.jpg?alt=media&token=9c9d6190-39d9-48a6-aef3-505be307f387',
     },
+    role: { type: String, require: true, default: 'user' },
   },
   {
     timestamps: true,

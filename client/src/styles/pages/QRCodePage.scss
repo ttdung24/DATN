@@ -1,0 +1,26 @@
+.qrpage {
+  background-color: white;
+  margin-top: 20px;
+  .qrpage__title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 16px;
+  }
+  .qrpage__body {
+    padding-bottom: 50px;
+    .qrpage__tutor {
+      padding-left: 200px;
+    }
+    .qrpage__img {
+      margin: auto;
+      text-align: center;
+      width: 600px;
+      height: 752px;
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/datn-d800f.appspot.com/o/1701169375628.jpg?alt=media&token=ff2ea40a-de7b-411a-a032-1b2fccb6b545');
+      background-repeat: no-repeat;
+      background-size: contain;
+      border-radius: 20px;
+    }
+  }
+}

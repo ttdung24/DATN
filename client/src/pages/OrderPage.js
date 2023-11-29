@@ -12,12 +12,17 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const res = await axios.post(`${API_LINK}/order/my-order`, null, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        setDataOrder(res.data.order);
+        let res;
+        if (localStorage.getItem('role') === 'admin') {
+          res = await axios.get(`${API_LINK}/order/allorder`);
+        } else {
+          res = await axios.post(`${API_LINK}/order/my-order`, null, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          });
+        }
+        setDataOrder(res?.data.order);
       } catch (error) {
         console.log('Loi o fetch order', error);
       }

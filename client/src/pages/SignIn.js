@@ -34,6 +34,7 @@ const SignIn = () => {
         dispatch(login(res.data.accessToken));
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);
+        localStorage.setItem('role', res.data.role);
         navigator('/homepage');
       } catch (error) {
         console.log(error);

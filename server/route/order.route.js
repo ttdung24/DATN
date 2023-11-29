@@ -11,6 +11,8 @@ orderRouter.post(
   orderController.getOrderByUser
 );
 
+orderRouter.get('/allorder', orderController.getAllOrder);
+
 orderRouter.get('/:id', orderController.getOrderById);
 orderRouter.put('/:id/update', orderController.updateStatusOrder);
 

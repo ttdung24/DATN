@@ -27,6 +27,7 @@ const AuthController = {
         message: 'Đăng nhập thành công',
         accessToken,
         refreshToken,
+        role: checkUser.role,
       });
     } catch (error) {
       return res.status(500).json({
@@ -45,6 +46,7 @@ const AuthController = {
         message: 'Refresh token thành công',
         accessToken,
         refreshToken,
+        role: user.role,
       });
     } catch (error) {
       return res.status(500).json({

@@ -11,6 +11,7 @@ export const signIn = async (dispatch, userForm) => {
     dispatch(login(res.data.accessToken));
     localStorage.setItem('accessToken', res.data.accessToken);
     localStorage.setItem('refreshToken', res.data.refreshToken);
+    localStorage.setItem('role', res.data.role);
   } catch (error) {
     alert('Đăng nhập thất bại');
     console.log('Loi o signIn - apiCall: ', error);

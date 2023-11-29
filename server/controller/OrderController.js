@@ -59,6 +59,26 @@ const OrderController = {
       });
     }
   },
+  getAllOrder: async (req, res) => {
+    try {
+      const order = await Order.find()
+        .populate({
+          path: 'list',
+          populate: 'product',
+        })
+        .sort({ createdAt: -1 });
+      return res.status(200).json({
+        message: 'Lấy đơn hàng thành công',
+        order: order,
+      });
+    } catch (error) {
+      console.log('Lỗi ở hàm getAllOrder:', error);
+      return res.status(500).json({
+        message: 'Server error',
+        error,
+      });
+    }
+  },
   getOrderById: async (req, res) => {
     try {
       const { id } = req.params;
