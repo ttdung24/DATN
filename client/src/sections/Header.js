@@ -23,7 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     if (account.accessToken) {
-      getInfomation(dispatch, account.accessToken);
+      getInfomation(dispatch, localStorage.getItem('accessToken'));
     }
   }, [account]); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -106,7 +106,7 @@ const Product = () => {
           {dataReview &&
             dataReview.map((item) => (
               <div className='review__wrap' key={item._id}>
-                <div className='review__avatar'></div>
+                <div className='review__avatar' style={{ backgroundImage: `url(${item.user.image})` }}></div>
                 <div className='review__main'>
                   <div className='review__author-name'>
                     {item.user.username}
