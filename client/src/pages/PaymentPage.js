@@ -33,7 +33,7 @@ const PaymentPage = () => {
       alert(res.data.message);
       navigator(`/payment/${res.data.order._id}`);
     } catch (error) {
-      console.log(error.response.data.message);
+      alert(error.response.data.message);
     }
   };
 

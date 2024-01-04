@@ -6,10 +6,12 @@ const {
   fillMissingDates,
   createDateRange,
 } = require('../helper/product/order.helper');
+const Product = require('../model/Product');
 
 const OrderController = {
   createOrder: async (req, res) => {
     try {
+      const orderItems = req.body.list;
       const cart = await Cart.findByIdAndUpdate(
         req.body._id,
         {
@@ -19,6 +21,23 @@ const OrderController = {
           new: true,
         }
       );
+
+      for (const orderItem of orderItems) {
+        const productId = orderItem.product;
+        const quantityPurchased = orderItem.quantity;
+
+        const product = await Product.findById(productId);
+
+        if (product.quantity < quantityPurchased) {
+          return res.status(400).json({
+            message: `Không đủ hàng cho sản phẩm ${product.name}`,
+          });
+        }
+
+        product.quantity -= quantityPurchased;
+
+        await product.save();
+      }
       delete req.body._id;
       delete req.body.createdAt;
       delete req.body.updatedAt;
