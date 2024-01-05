@@ -21,6 +21,7 @@ import UserPage from './pages/UserPage';
 import ChangePassword from './sections/userpage/ChangePassword';
 import QRCodePage from './pages/QRCodePage';
 import ShopReviews from './sections/shop/ShopReviews';
+import ShopInformation from './sections/shop/ShopInformation';
 
 function App() {
   return (
@@ -45,6 +46,16 @@ function App() {
               <>
                 <Header />
                 <Shop />
+                <Footer />
+              </>
+            }
+          />
+           <Route
+            path='/shop/restore-product'
+            element={
+              <>
+                <Header />
+                <ShopInformation />
                 <Footer />
               </>
             }

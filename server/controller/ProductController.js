@@ -28,7 +28,7 @@ const ProductController = {
           $match: {
             $and: [
               { shop: new mongoose.Types.ObjectId(req.params.id) },
-              { status: true },
+              { status: req.query.status === 'true' ? true : false },
             ],
           },
         },

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../../styles/sections/shop/ShopInfomation.scss';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -8,20 +8,25 @@ import ShopNav from './ShopNav';
 
 const ShopInformation = () => {
   const navigator = useNavigate();
+  const { state } = useLocation();
   const [dataShop, setDataShop] = useState(null);
   const shop = useSelector((state) => state.shop);
   const fetchProductOfShop = async () => {
-    const res = await axios.get(`${API_LINK}/product/shop/${shop.shop._id}`);
+    const res = await axios.get(`${API_LINK}/product/shop/${shop.shop._id}`, {
+      params: {
+        status: state ? state.status : 'true',
+      },
+    });
     setDataShop(res.data.product);
   };
   useEffect(() => {
     fetchProductOfShop();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const deleteProduct = async (e, id) => {
+  const changeStatusProduct = async (e, id) => {
     e.stopPropagation();
     const res = await axios.put(`${API_LINK}/product/${id}`, {
-      status: false,
+      status: state ? true : false,
     });
     console.log(res.data.message);
     fetchProductOfShop();
@@ -86,9 +91,9 @@ const ShopInformation = () => {
                       <td>
                         <div
                           className='btn-delete'
-                          onClick={(e) => deleteProduct(e, item._id)}
+                          onClick={(e) => changeStatusProduct(e, item._id)}
                         >
-                          Xóa
+                          {state ? 'Khôi phục' : 'Xóa'}
                         </div>
                       </td>
                       <td>

@@ -8,6 +8,7 @@ import { storage } from '../../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { API_LINK } from '../../default-value';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AddProduct = () => {
@@ -25,6 +26,7 @@ const AddProduct = () => {
   const [message, setMessage] = useState('Loading...');
   const category = useSelector((state) => state.category);
   const shop = useSelector((state) => state.shop);
+  const navigator = useNavigate();
 
   const handleSubmit = async () => {
     setCheck('0');
@@ -32,14 +34,16 @@ const AddProduct = () => {
     try {
       const fileName =
         uuidv4() +
-        selectedImage.name.substring(
-          selectedImage.name.lastIndexOf('.')
-        );
+        selectedImage.name.substring(selectedImage.name.lastIndexOf('.'));
       const storageRef = ref(storage, fileName);
 
       const snapshot = await uploadBytes(storageRef, selectedImage);
       const downloadURL = await getDownloadURL(snapshot.ref);
-      const newProduct = {...productForm, image: downloadURL, shop: shop.shop._id};
+      const newProduct = {
+        ...productForm,
+        image: downloadURL,
+        shop: shop.shop._id,
+      };
 
       const res = await axios.post(`${API_LINK}/product/create`, newProduct);
       setMessage(res.data.message);
@@ -78,20 +82,12 @@ const AddProduct = () => {
                   src={URL.createObjectURL(selectedImage)}
                 />
                 <br />
-                <button
-                  onClick={() =>
-                    setSelectedImage(null)
-                  }
-                >
-                  Remove
-                </button>
+                <button onClick={() => setSelectedImage(null)}>Remove</button>
               </div>
             ) : (
               <input
                 type='file'
-                onChange={(e) =>
-                  setSelectedImage(e.target.files[0])
-                }
+                onChange={(e) => setSelectedImage(e.target.files[0])}
               />
             )}
           </div>
@@ -145,7 +141,12 @@ const AddProduct = () => {
           </div>
         </div>
         <div className='shopreg__button'>
-          <div className='button button-cancel'>Hủy</div>
+          <div
+            className='button button-cancel'
+            onClick={(e) => navigator('/shop')}
+          >
+            Quay lại
+          </div>
           <div className='button button-submit' onClick={(e) => handleSubmit()}>
             Hoàn tất
           </div>
@@ -166,7 +167,9 @@ const AddProduct = () => {
             <div className='popup__message'>{message}</div>
             <div
               className='button button-submit'
-              onClick={(e) => setOpen(false)}
+              onClick={(e) => {
+                setOpen(false);
+              }}
             >
               Done
             </div>

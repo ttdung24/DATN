@@ -9,10 +9,21 @@ const ShopNav = () => {
         <li className='nav__item' onClick={(e) => navigator('/shop')}>
           Quản lý sản phẩm
         </li>
+        <li
+          className='nav__item'
+          onClick={(e) =>
+            navigator('/shop/restore-product', {
+              state: {
+                status: false,
+              },
+            })
+          }
+        >
+          Sản phẩm lưu trữ
+        </li>
         <li className='nav__item' onClick={(e) => navigator('/shop/orders')}>
           Quản lý đơn hàng
         </li>
-        <li className='nav__item'>Quản lý shop</li>
         <li
           className='nav__item'
           onClick={(e) => navigator('/shop/statistics')}
