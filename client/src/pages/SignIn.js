@@ -20,6 +20,16 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const handleSingIn = () => {
+    if (!userForm.username || !userForm.password) {
+      alert('Điền đẩy đủ username và mật khẩu');
+      return;
+    }
+
+    if (userForm.password.length < 8) {
+      alert('Mật khẩu phải dài hơn 8 kí tự');
+      return;
+    }
+
     signIn(dispatch, userForm);
     navigator('/homepage');
   };
@@ -28,7 +38,7 @@ const SignIn = () => {
       try {
         const res = await axios.post(`${API_LINK}/auth/refreshtoken`, null, {
           headers: {
-            'Authorization': `Bearer ${refreshToken}`,
+            Authorization: `Bearer ${refreshToken}`,
           },
         });
         dispatch(login(res.data.accessToken));

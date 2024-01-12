@@ -8,6 +8,7 @@ const SignUp = () => {
   const [userForm, setUserForm] = useState({
     username: '',
     password: '',
+    repassword: '',
     email: '',
     fullname: '',
   });
@@ -16,18 +17,38 @@ const SignUp = () => {
 
   const handleSingUp = async () => {
     try {
+      if (
+        !userForm.username ||
+        !userForm.password ||
+        !userForm.repassword ||
+        !userForm.email ||
+        !userForm.fullname
+      ) {
+        alert('Điền đẩy đủ thông tin các trường');
+        return;
+      }
+
+      if (userForm.password.length < 8) {
+        alert('Mật khẩu phải dài hơn 8 kí tự');
+        return;
+      }
+
+      if (userForm.password !== userForm.repassword) {
+        alert('Mật khẩu và nhập lại mật khẩu phải giống nhau');
+        return;
+      }
+
       const res = await axios.post(`${API_LINK}/user/create`, userForm);
       alert(res.data.message);
       navigator('/');
     } catch (error) {
-      alert("Tạo tài khoản thất bại");
-      console.log('Loi o handle SignUp: ', error)
+      alert(error.response.data.message);
     }
   };
 
   return (
     <div className='signUp d-flex justify-content-center align-items-center'>
-      <div class='signUp__form'>
+      <div className='signUp__form'>
         <h1 className=''>REGISTER</h1>
         <form>
           <div className='input_field'>
@@ -102,6 +123,25 @@ const SignUp = () => {
                 setUserForm({
                   ...userForm,
                   password: e.target.value,
+                })
+              }
+            />
+          </div>
+          <div className='input_field'>
+            <label className='form-label' htmlFor='password'>
+              Re-enter password
+            </label>
+            <input
+              type='password'
+              name='re-password'
+              id='re-password'
+              required
+              className='form-control'
+              value={userForm.repassword}
+              onChange={(e) =>
+                setUserForm({
+                  ...userForm,
+                  repassword: e.target.value,
                 })
               }
             />

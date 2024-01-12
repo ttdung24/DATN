@@ -10,8 +10,39 @@ const Product = require('../model/Product');
 
 const OrderController = {
   createOrder: async (req, res) => {
+    let session;
     try {
+      session = await mongoose.startSession();
+      session.startTransaction();
+
       const orderItems = req.body.list;
+
+      const updates = [];
+
+      for (const orderItem of orderItems) {
+        const productId = orderItem.product;
+        const quantityPurchased = orderItem.quantity;
+
+        const product = await Product.findById(productId);
+
+        if (product.quantity < quantityPurchased) {
+          await session.abortTransaction();
+          session.endSession();
+
+          return res.status(400).json({
+            message: `Không đủ hàng cho sản phẩm ${product.name}`,
+          });
+        }
+
+        updates.push({
+          updateOne: {
+            filter: { _id: product._id },
+            update: { $inc: { quantity: -quantityPurchased } },
+          },
+        });
+      }
+      await Product.bulkWrite(updates);
+
       const cart = await Cart.findByIdAndUpdate(
         req.body._id,
         {
@@ -22,32 +53,25 @@ const OrderController = {
         }
       );
 
-      for (const orderItem of orderItems) {
-        const productId = orderItem.product;
-        const quantityPurchased = orderItem.quantity;
-
-        const product = await Product.findById(productId);
-
-        if (product.quantity < quantityPurchased) {
-          return res.status(400).json({
-            message: `Không đủ hàng cho sản phẩm ${product.name}`,
-          });
-        }
-
-        product.quantity -= quantityPurchased;
-
-        await product.save();
-      }
       delete req.body._id;
       delete req.body.createdAt;
       delete req.body.updatedAt;
       const newOrder = await Order.create(req.body);
+
+      await session.commitTransaction();
+      session.endSession();
+
       return res.status(200).json({
         message: 'Đặt hàng thành công',
         order: newOrder,
         cart,
       });
     } catch (error) {
+      if (session) {
+        await session.abortTransaction();
+        session.endSession();
+      }
+
       console.log('Lỗi ở hàm createOrder:', error);
       return res.status(500).json({
         message: 'Server error',

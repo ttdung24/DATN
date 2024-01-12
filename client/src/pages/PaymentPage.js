@@ -24,6 +24,10 @@ const PaymentPage = () => {
 
   const handlePayment = async () => {
     try {
+      if (!paymentForm.address || !paymentForm.phone || !paymentForm.fullname) {
+        alert('Điền đẩy đủ thông tin các trường');
+        return;
+      }
       const res = await axios.post(`${API_LINK}/order`, {
         ...paymentForm,
         ...cartForm,

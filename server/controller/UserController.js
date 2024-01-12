@@ -3,6 +3,12 @@ const User = require('../model/User');
 const UserController = {
   create: async (req, res) => {
     try {
+      const checkUser = await User.findOne({ username: req.body.username });
+      if (checkUser) {
+        return res.status(500).json({
+          message: 'Username đã có người sử dụng',
+        });
+      }
       const newUser = await User.create(req.body);
       return res.status(200).json({
         message: 'Tạo tài khoản thành công',
@@ -10,7 +16,7 @@ const UserController = {
       });
     } catch (error) {
       return res.status(500).json({
-        message: 'Server error',
+        message: 'Tạo tài khoản thất bại',
         error: error,
       });
     }
