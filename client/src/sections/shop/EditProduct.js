@@ -41,6 +41,16 @@ const EditProduct = () => {
     setCheck('0');
     setOpen(true);
     try {
+      if (
+        !productForm.description ||
+        !productForm.price ||
+        !productForm.name ||
+        !productForm.quantity ||
+        !productForm.category
+      ) {
+        alert('Điền đẩy đủ thông tin các trường');
+        return;
+      }
       let updateProduct = { ...productForm };
       if (selectedImage) {
         const fileName =
@@ -62,7 +72,6 @@ const EditProduct = () => {
       setMessage(res.data.message);
       setCheck('1');
     } catch (error) {
-      console.log(error);
       setMessage(error.response.data.message);
       setCheck('2');
     }
@@ -126,10 +135,7 @@ const EditProduct = () => {
             >
               <option value='0'>Chọn nhãn</option>
               {category.category.map((item) => (
-                <option
-                  key={item._id}
-                  value={item._id}
-                >
+                <option key={item._id} value={item._id}>
                   {item.name}
                 </option>
               ))}

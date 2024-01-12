@@ -26,6 +26,15 @@ const ShopRegister = () => {
     setCheck('0');
     setOpen(true);
     try {
+      if (
+        !shopForm.name ||
+        !shopForm.fullname ||
+        !shopForm.address ||
+        !shopForm.phone
+      ) {
+        alert('Điền đẩy đủ thông tin các trường');
+        return;
+      }
       const res = await axios.post(`${API_LINK}/shop/create`, shopForm, {
         headers: {
           Authorization: `Bearer ${account.accessToken}`,

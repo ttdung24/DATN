@@ -32,6 +32,17 @@ const AddProduct = () => {
     setCheck('0');
     setOpen(true);
     try {
+      if (
+        !productForm.description ||
+        !productForm.price ||
+        !productForm.name ||
+        !productForm.quantity ||
+        !productForm.category
+      ) {
+        alert('Điền đẩy đủ thông tin các trường');
+        return;
+      }
+
       const fileName =
         uuidv4() +
         selectedImage.name.substring(selectedImage.name.lastIndexOf('.'));
